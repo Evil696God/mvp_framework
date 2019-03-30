@@ -55,7 +55,19 @@ public abstract class BaseRecyclerFragment<T extends BaseRecyclerPresenter> exte
 
     private void initView() {
         if (recyclerView == null) {
-            recyclerView = new BaseRecyclerView(context);
+            recyclerView = new BaseRecyclerView(context){
+                @Override
+                public void loadData() {
+                    super.loadData();
+                    loadNewData();
+                }
+
+                @Override
+                public void refresh() {
+                    super.refresh();
+                    refreshData();
+                }
+            };
         }
     }
 
@@ -68,5 +80,11 @@ public abstract class BaseRecyclerFragment<T extends BaseRecyclerPresenter> exte
         } else {
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void loadNewData() {
+    }
+
+    public void refreshData() {
     }
 }
